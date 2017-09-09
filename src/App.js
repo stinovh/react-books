@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-import './App.css'
 import BookList from './BookList'
 import SearchBooks from './SearchBooks'
 import * as BooksAPI from './BooksAPI'
 import Alert from 'react-s-alert'
+import { UnCamelCase } from './helpers'
 
+import './App.css'
 import 'react-s-alert/dist/s-alert-default.css'
 
-class BooksApp extends React.Component {
+class App extends Component {
   state = {
     books: []
   }
@@ -24,7 +25,7 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf).then((state) => {
       book.shelf = shelf
       this.setState({ books: oldState.concat([ book ]) })
-      Alert.success(`${book.title} updated succesfully`, {
+      Alert.success(`${book.title} moved to ${UnCamelCase(book.shelf)}`, {
         position: 'top-right'
       });
     })
@@ -46,10 +47,10 @@ class BooksApp extends React.Component {
               changeShelf={(book, shelf) => this.updateBook(book, shelf)}
             />
           )}/>
-          <Alert stack={{limit: 3}} />
+          <Alert stack={{limit: 5}} />
       </div>
     )
   }
 }
 
-export default BooksApp
+export default App

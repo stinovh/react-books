@@ -1,21 +1,13 @@
 import React from 'react'
 import Book from './Book'
+import PropTypes from 'prop-types'
+import { UnCamelCase } from './helpers'
 
 const Shelf = ({ status, books, changeShelf }) => {
 
-  const unCamelCase = (str) => {
-    return str
-        // insert a space between lower & upper
-        .replace(/([a-z])([A-Z])/g, '$1 $2')
-        // space before last upper in a sequence followed by lower
-        .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
-        // uppercase the first character
-        .replace(/^./, function(str){ return str.toUpperCase(); })
-  }
-
   return (
     <div className="bookshelf">
-      <h2 className="bookshelf-title">{unCamelCase(status)}</h2>
+      <h2 className="bookshelf-title">{UnCamelCase(status)}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
           {books.map( (book) => (
@@ -30,6 +22,12 @@ const Shelf = ({ status, books, changeShelf }) => {
       </div>
     </div>
   )
+}
+
+Shelf.propTypes = {
+  status: PropTypes.string.isRequired,
+  books: PropTypes.array.isRequired,
+  changeShelf: PropTypes.func.isRequired
 }
 
 export default Shelf
