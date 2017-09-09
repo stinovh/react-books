@@ -1,7 +1,7 @@
 import React from 'react'
 import Book from './Book'
 
-const Shelf = ({ status, books }) => {
+const Shelf = ({ status, books, changeShelf }) => {
 
   const unCamelCase = (str) => {
     return str
@@ -20,7 +20,10 @@ const Shelf = ({ status, books }) => {
         <ol className="books-grid">
           {books.map( (book) => (
             <li key={book.id}>
-              <Book book={book}/>
+              <Book
+                book={book}
+                changeShelf={changeShelf}
+              />
             </li>
           ))}
         </ol>
